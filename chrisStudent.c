@@ -1,36 +1,3 @@
-/* 
-=== HOW TO RUN ===
-Step 1: cd into C file location
-Step 2: gcc -o student student.c -lwiringPi
-Step 3: ./student
-
-=== PRE-REQUISITES ===
-Install wiringPi: https://learn.sparkfun.com/tutorials/raspberry-gpio/c-wiringpi-setup
-softPwm is installed with wiringPi
-
-=== USEFUL COMMANDS ===
-Check wiringPi version: gpio -v
-Check GPIO status: gpio readall
-
-=== GPIO PIN CONNECTION ===
-27 GREEN LED
-13 RED LED
-GROUND
-
-GPIO14 to Monitor GPIO15
-GPIO15 to Monitor GPIO14
-GROUND
-
-=== RASPBERRY PI VERSION ===
-Check Version Command: cat /etc/os-release
-
-PRETTY_NAME="Raspbian GNU/Linux 10 (buster)"
-NAME="Raspbian GNU/Linux"
-VERSION_ID="10"
-VERSION="10 (buster)"
-VERSION_CODENAME=buster
-*/
-
 #include <wiringPi.h>
 #include <softPwm.h>
 #include <signal.h>
