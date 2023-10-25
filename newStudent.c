@@ -105,7 +105,6 @@ The main menu that determines what the user wants to do
 */
 int getUserSelection()
 {
-
     int selection;
 
     printf("\n===== LAD STUDENT DEVICE =====\n");
@@ -164,7 +163,7 @@ void blink()
     {
         blinkLedWithConfig(blinkLed, frequency, brightness); 
 
-            system("clear");
+        system("clear");
         // if (connectToMonitorDevice(blinkLed, frequency, brightness) < 0)
         // {
         //     blinkLedWithConfig(blinkLed, frequency, brightness);
@@ -172,7 +171,7 @@ void blink()
         // }
         // else
         // {
-        //     blinkLedWithConfig(blinkLed, frequency, brightness); 
+        //     blinkLedWithConfig(blinkLed, frequency, brightness);         // This chunk of code is commented out to prevent the connectToMonitorDevice from running
 
         //     system("clear");
         // }
@@ -416,9 +415,9 @@ void blinkLedWithConfig(int blinkLed, int blinkFrequency, int blinkBrightness)
 
             unsigned long currentMillis = millis();                         // Get current millisecond
             previousTime = currentMillis;
-            printf("Current millis: %lu\n",currentMillis);                  // Just to check if the millis values change between currentMillis and previousMillis
-            printf("Previous millis: %lu\n",previousMillis);                // ^
-            // printf("Printing every 20ms...\n");
+            //printf("Current millis: %lu\n",currentMillis);                // Just to check if the millis values change between currentMillis and previousMillis
+            //printf("Previous millis: %lu\n",previousMillis);              // ^
+            //printf("Printing every 20ms...\n");
 
             
             if (currentMillis - previousMillis >= onOffTime)                // Tells the LED when to turn on or off (from the user input frequency)
@@ -428,36 +427,34 @@ void blinkLedWithConfig(int blinkLed, int blinkFrequency, int blinkBrightness)
                 if (ledState == LOW)
                 {
                     ledState = HIGH;
-                    printf("Set to High\n");                                // Just for testing to show LED being set to HIGH (on)
-                    softPwmWrite(blinkLed, blinkBrightness);              // DO NOT REMOVE (Commented out to test with printf)
+                    //printf("Set to High\n");                              // Just for testing to show LED being set to HIGH (on)
+                    softPwmWrite(blinkLed, blinkBrightness);                // DO NOT REMOVE (Commented out to test with printf)
                 }
                 else
                 {
                     ledState = LOW;
-                    printf("Set to Low\n");                                 // Just for testing to show LED being set to LOW (off)
-                    softPwmWrite(blinkLed, 0);                            // DO NOT REMOVE
+                    //printf("Set to Low\n");                               // Just for testing to show LED being set to LOW (off)
+                    softPwmWrite(blinkLed, 0);                              // DO NOT REMOVE (Commented out to test with printf)
                 }
                 blink++;
-                digitalWrite(blinkLed, ledState);                         // DO NOT REMOVE (Commented out to test with printf)
+                digitalWrite(blinkLed, ledState);                           // DO NOT REMOVE (Commented out to test with printf)
             }
 
-            printf("LED State is: %i\n", ledState);                         // Show the current LED state (on/off) every 20ms
+           //printf("LED State is: %i\n", ledState);                        // Show the current LED state (on/off) every 20ms
             fflush(stdout);                                                 // Flush the output buffer to ensure immediate printing
 
             usleep(interval * 1000);                                        // Sleep for the specified interval in microseconds (Linked to the 20 milliseconds above)
             
-            // Test
-            
-            
+            // This saves the data of LED state and timing to the dataArray
             dataArray[rows - 1][0] = ledState;
             dataArray[rows - 1][1] = theTime;
             rows++;
-            dataArray = realloc(dataArray, sizeof(int *) * rows);
+            dataArray = realloc(dataArray, sizeof(int *) * rows);           // This 2 reallocates additional memory to the dataArray as the array size increases
             dataArray[rows - 1] = malloc(sizeof(int) * cols);
         }
     }
 
-    for (int i = 0; i < rows-1; i++)                                          //  Show content
+    for (int i = 0; i < rows-1; i++)                                         //  Show content
     {
         for (int j = 0; j < cols; j++)
         {
@@ -467,7 +464,7 @@ void blinkLedWithConfig(int blinkLed, int blinkFrequency, int blinkBrightness)
     }
 
     // Save to CSV
-    FILE *saveFile = fopen("waveformData.csv", "a");                        //  Open/Create file
+    FILE *saveFile = fopen("waveformData.csv", "w");                        //  Open/Create file
     fprintf(saveFile, "Frequency of LED is %dHz, Brightness is %d, LED Colour is %s \n\n", blinkFrequency, blinkBrightness, blinkLedString);
     for (int i = 0; i < rows-1; i++)
     {
@@ -475,8 +472,9 @@ void blinkLedWithConfig(int blinkLed, int blinkFrequency, int blinkBrightness)
     }
 
     fclose(saveFile);
+    printf("Data saved to waveformData.csv\n");
 
-    // Free Memory to prevent memory leak
+    // Free Memory from dataArray to prevent memory leak
     for (int i = 0; i < rows; i++)                                          //  Free Memory (Part a)
     {
         free(dataArray[i]);
