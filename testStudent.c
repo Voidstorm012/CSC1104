@@ -490,7 +490,7 @@ void blinkLedWithConfig(int blinkLed, int blinkFrequency, int blinkDutyCycle, in
     {
         fprintf(saveFile, "%d, %d\n", dataArray[i][0], dataArray[i][1]);    // Save from array
     }
-    fprintf(saveFile, "\n")
+    fprintf(saveFile, "\n");
 
     fclose(saveFile);
     printf("Data saved to waveformData.csv\n");
