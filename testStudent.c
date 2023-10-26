@@ -485,12 +485,13 @@ void blinkLedWithConfig(int blinkLed, int blinkFrequency, int blinkDutyCycle, in
 
     // Save to CSV
     FILE *saveFile = fopen("waveformData.csv", "a");                        // Open/Create file
-    fprintf(saveFile, "Frequency of LED is %dHz, Brightness is %d, Duty Cycle is %d, LED Colour is %s \n\n", blinkFrequency, blinkBrightness, blinkDutyCycle, blinkLedString);
+    fprintf(saveFile, "START\n\n");
+    fprintf(saveFile, "%s LED. Running at %dHz frequency with a duty cycle of %d%%. Brightness set to %d%%.\n\n", blinkLedString, blinkFrequency, blinkBrightness, blinkDutyCycle);
     for (int i = 0; i < rows-1; i++)
     {
         fprintf(saveFile, "%d, %d\n", dataArray[i][0], dataArray[i][1]);    // Save from array
     }
-    fprintf(saveFile, "\n");
+    fprintf(saveFile, "\nEND\n\n");
 
     fclose(saveFile);
     printf("Data saved to waveformData.csv\n");
