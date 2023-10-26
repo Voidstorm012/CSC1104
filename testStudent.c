@@ -443,7 +443,7 @@ void blinkLedWithConfig(int blinkLed, int blinkFrequency, int blinkDutyCycle, in
             //printf("Previous millis: %lu\n",previousMillis);              // ^
             //printf("Printing every 20ms...\n");
 
-            if (currentMillis - previousMillis >= offTime && ledState == LOW)                // Tells the LED when to turn on or off (from the user input frequency)
+            if (currentMillis - previousMillis >= offTime && ledState == LOW)
             {
                 previousMillis = currentMillis;
                 ledState = HIGH;
