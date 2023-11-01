@@ -408,6 +408,7 @@ void blinkLedWithConfig(int blinkLed, int blinkFrequency, int blinkDutyCycle, in
     float offTime = 1.0f / blinkFrequency * (1000 - dutyCycle);
     unsigned long theTime = 0;
     unsigned long previousTime = 0;
+    int loopDuration = 60 * blinkFrequency;
           
     // Setting Blink LED
     char blinkLedString[] = "Green";  
@@ -426,11 +427,11 @@ void blinkLedWithConfig(int blinkLed, int blinkFrequency, int blinkDutyCycle, in
     int ledState = LOW;
 
 
-    for (int blink = 0; blink < 20;)
+    for (int blink = 0; blink < loopDuration;)
     {
         int interval = 20;                                                  // 20 milliseconds                              (Linked to the usleep below)
         
-        while (blink < 20)                                                  // Timer
+        while (blink < loopDuration)                                                  // Timer
         {
             if (previousMillis != 0) {                                      // This is to get the timing intervals between each iteration to be saved in CSV
                 unsigned long currentTime = millis();
@@ -485,13 +486,13 @@ void blinkLedWithConfig(int blinkLed, int blinkFrequency, int blinkDutyCycle, in
 
     // Save to CSV
     FILE *saveFile = fopen("waveformData.csv", "a");                        // Open/Create file
-    fprintf(saveFile, "START\n\n");
+    fprintf(saveFile, "START\n");
     fprintf(saveFile, "%s LED. Running at %dHz frequency with a duty cycle of %d%%. Brightness set to %d%%.\n\n", blinkLedString, blinkFrequency, blinkDutyCycle, blinkBrightness);
     for (int i = 0; i < rows-1; i++)
     {
         fprintf(saveFile, "%d, %d\n", dataArray[i][0], dataArray[i][1]);    // Save from array
     }
-    fprintf(saveFile, "\nEND\n\n");
+    fprintf(saveFile, "END\n\n");
 
     fclose(saveFile);
     printf("Data saved to waveformData.csv\n");
