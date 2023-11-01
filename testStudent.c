@@ -429,8 +429,8 @@ void blinkLedWithConfig(int blinkLed, int blinkFrequency, int blinkDutyCycle, in
     //for (int blink = 0; blink < loopDuration;)
     //{
         int interval = 20;                                                  // 20 milliseconds (To save data every 20ms)  (Linked to the usleep below)
-        
-        while (int blink = 0 < loopDuration)                                        // Timer
+        int blink = 0;
+        while (blink < loopDuration)                                        // Timer
         {
             if (previousMillis != 0) {                                      // This is to get the timing intervals between each iteration to be saved in CSV
                 unsigned long currentTime = millis();
