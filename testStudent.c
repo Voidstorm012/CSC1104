@@ -426,11 +426,11 @@ void blinkLedWithConfig(int blinkLed, int blinkFrequency, int blinkDutyCycle, in
     unsigned long previousMillis = 0;
     int ledState = LOW;
 
-    for (int blink = 0; blink < loopDuration;)
-    {
+    //for (int blink = 0; blink < loopDuration;)
+    //{
         int interval = 20;                                                  // 20 milliseconds (To save data every 20ms)  (Linked to the usleep below)
         
-        while (blink < loopDuration)                                        // Timer
+        while (int blink = 0 < loopDuration)                                        // Timer
         {
             if (previousMillis != 0) {                                      // This is to get the timing intervals between each iteration to be saved in CSV
                 unsigned long currentTime = millis();
@@ -472,16 +472,16 @@ void blinkLedWithConfig(int blinkLed, int blinkFrequency, int blinkDutyCycle, in
             dataArray = realloc(dataArray, sizeof(int *) * rows);           // This 2 reallocates additional memory to the dataArray as the array size increases
             dataArray[rows - 1] = malloc(sizeof(int) * cols);
         }
-    }
+    //}
 
-    for (int i = 0; i < rows-1; i++)                                        // Show content
-    {
-        for (int j = 0; j < cols; j++)
-        {
-            printf("%02d", dataArray[i][j]);
-        }
-        printf("\n");
-    }
+    // for (int i = 0; i < rows-1; i++)                                        // Show content
+    // {
+    //     for (int j = 0; j < cols; j++)
+    //     {
+    //         printf("%02d", dataArray[i][j]);
+    //     }
+    //     printf("\n");
+    // }
 
     // Save to CSV
     FILE *saveFile = fopen("waveformData.csv", "a");                        // Open/Create file
