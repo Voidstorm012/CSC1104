@@ -184,25 +184,16 @@ void blink() {
     int frequency = getBlinkFrequency();
     int brightness = getBlinkBrightness();
 
-    if (confirmBlinkSelection(blinkLed, frequency, brightness) == CONFIRM)
-    {
-        blinkLedWithConfig(blinkLed, frequency, brightness); 
+    if (confirmBlinkSelection(blinkLed, frequency, brightness) == CONFIRM) {
 
-        system("clear");
-        if (connectToMonitorDevice(blinkLed, frequency, brightness) < 0)
-        {
-             blinkLedWithConfig(blinkLed, frequency, brightness);
-             printf("Connection failed, please make sure monitor device is ready.\n");
+        if (connectToMonitorDevice(blinkLed, frequency, brightness) < 0) {
+            printf("Connection failed, please make sure monitor device is ready.\n");
+        } else {
+            blinkLedWithConfig(blinkLed, frequency, brightness);
+            system("clear");
         }
-        else
-        {
-             blinkLedWithConfig(blinkLed, frequency, brightness);         // This chunk of code is commented out to prevent the connectToMonitorDevice from running
 
-             system("clear");
-         }
-    }
-    else
-        return;
+    } else return;
 
 }
 
