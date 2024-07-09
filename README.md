@@ -19,7 +19,7 @@ To set up the project on your local machine:
     ```
 2. Navigate to the project directory:
     ```bash
-    cd yourproject
+    cd CSC1104
     ```
 3. Compile the C program:
     ```bash
